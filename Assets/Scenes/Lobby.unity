@@ -29156,6 +29156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: 
+  LoginError: 0
 --- !u!114 &2051683872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29257,6 +29258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preferredRoleType: 0
+  JoinedLobby: 0
 --- !u!114 &2051683875
 MonoBehaviour:
   m_ObjectHideFlags: 0

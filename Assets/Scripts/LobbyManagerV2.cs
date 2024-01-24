@@ -72,6 +72,7 @@ public class LobbyManagerV2 : MonoBehaviour
         if (result.Ok)
         {
             UIm.SetSection_Matchmaking();
+            JoinedLobby = true;
         }
         else
         {
@@ -79,6 +80,7 @@ public class LobbyManagerV2 : MonoBehaviour
             UIm.SetMessage($"Failed to Start: {result.ShutdownReason}");
         }
     }
+    public bool JoinedLobby;
 
     private async Task StartHost(NetworkRunner _runner/*, string _lobbyName = "MyCustomLobby"*/)
     {

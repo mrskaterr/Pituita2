@@ -388,4 +388,23 @@ public class UIManager : MonoBehaviour
         playerNameTxt.SetContent(_name);
         playerNameTxtB.SetContent(_name);
     }
+
+    #region Test
+
+    public void SetMail(string _mail)
+    {
+        LogMailInput.text = _mail;
+    }
+
+    public void SetPassword(string _password)
+    {
+        LogPasswordInput.text = _password;
+    }
+
+    public void SetSessionName(string _name)
+    {
+        sessionNameInput.text = _name;
+    }
+
+    #endregion
 }

@@ -86,6 +86,7 @@ public class PlayfabLogin : MonoBehaviour//TODO: Guest Mode, Remember Me, Mail O
         UIm.SetMessage(_error.ErrorMessage);
         UIm.StopMoving(); //TOTEST: <---
         //Debug.Log(_error.GenerateErrorReport());
+        LoginError = true;
     }
 
     private void OnLoginSuccess(LoginResult _result)
@@ -98,6 +99,7 @@ public class PlayfabLogin : MonoBehaviour//TODO: Guest Mode, Remember Me, Mail O
         UIm.SetDisplayName(playerName);
         OnCorrectNameProvided();
     }
+    public bool LoginError;
 
     private void OnPasswordReset(SendAccountRecoveryEmailResult _result)
     {

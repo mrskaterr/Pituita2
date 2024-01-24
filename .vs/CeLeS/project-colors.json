@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3d81ebd5-eae5-43b3-5bda-87c2c0304ad2": {
+      "ProjectGuid": "3d81ebd5-eae5-43b3-5bda-87c2c0304ad2",
+      "DisplayName": "Assembly-CSharp",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Różne pliki",
+      "ColorIndex": -1
+    },
+    "6b70ba46-7baa-5dae-3eef-41e3a07f619d": {
+      "ProjectGuid": "6b70ba46-7baa-5dae-3eef-41e3a07f619d",
+      "DisplayName": "Assembly-CSharp-Editor",
+      "ColorIndex": 1
+    },
+    "ea4db439-ed3e-70e8-8f10-bbb0634ab54d": {
+      "ProjectGuid": "ea4db439-ed3e-70e8-8f10-bbb0634ab54d",
+      "DisplayName": "Unity.Fusion.CodeGen",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
