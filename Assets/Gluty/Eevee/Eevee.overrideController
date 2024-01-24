@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Eevee
+  m_Controller: {fileID: 9100000, guid: a9f47c86c562ac04fad11f67c338305d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9599c5380b27acc42b6dc7f599d03268, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2de461d3e8faccd4db6bcbde8225b258, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 47a8126be282e034aabdcda8fe60bf70, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0be15fddc8e3f2647842ed29e6d89009, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 37cd555503156374fa436a8bf5abfc2f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 76da11192fab6424295d261b7068c91e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 40cff6dfe06207c499cdb85628d5cf88, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bc21f3624b99bb34ebd89baba3d937f2, type: 2}
