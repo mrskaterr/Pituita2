@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class CaptureHandler : NetworkBehaviour
 {
+    [SerializeField] AudioClip jarAudioClip;
+    [Space]
     [SerializeField] private LocalCameraHandler cameraHandler;
-
     private CarryGlobal carryGlobal;
     private HealthSystem healthSystem;
     private PlayerHUD HUD;
+    private AudioHandler audioHandler;
 
     [Networked(OnChanged = nameof(OnChangeRelease))]
     public bool isFree { get; set; } = true;
@@ -26,6 +28,7 @@ public class CaptureHandler : NetworkBehaviour
     private void Start()
     {
         Invoke(nameof(Init), 2);
+        audioHandler = GetComponent<AudioHandler>();
     }
 
     private void Init()
@@ -60,6 +63,7 @@ public class CaptureHandler : NetworkBehaviour
         HUD.ToggleCrosshair(false);
         HUD.ToggleOnHitImage(false);
         isCarried = true;
+        audioHandler.PlayClip(jarAudioClip);
     }
 
     [Rpc]

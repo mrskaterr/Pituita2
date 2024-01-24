@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 //using UnityInspector;
 
 public class GameManager : MonoBehaviour
 {
+    
     public static GameManager instance;
 
     [HideInInspector] public MissionManager missionManager;
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int gameDuration = 300;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject defeatScreen;
+    public bool loadLobby;
 
     private void Awake()
     {
@@ -31,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if(loadLobby && LoadingCanvas.instance == null)
+            SceneManager.LoadScene(0);
         Invoke(nameof(EndLoading), 1);
     }
 

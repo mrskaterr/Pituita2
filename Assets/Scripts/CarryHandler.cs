@@ -46,7 +46,7 @@ public class CarryHandler : NetworkBehaviour
         animator.SetHoldAnim(false);
         gunParent.SetActive(true);
         capturedBody.SetActive(false);
-        captureHandler.RPC_PutDown();
+        captureHandler?.RPC_PutDown();
     }
 
     public void PutDown()

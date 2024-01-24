@@ -5,13 +5,19 @@ using UnityEngine;
 public class LoadingCanvas : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
-
+    
     private static GameObject loading;
 
-    private static LoadingCanvas instance;
+    public static LoadingCanvas instance;
+    [SerializeField] List<Transform> AutoPlay;
+
 
     private void Awake()
     {
+        foreach(Transform t in AutoPlay)
+            t.SetParent(null);
+        
+
         if(instance != null) { Destroy(gameObject); }
         else { instance = this; }
 

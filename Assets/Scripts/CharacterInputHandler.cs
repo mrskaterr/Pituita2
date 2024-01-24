@@ -17,24 +17,16 @@ public class CharacterInputHandler : MonoBehaviour
     private bool sneakyInput = false;
     private bool dashInput= false;
     private bool sprintInput=false;
-    private bool kneelingInput=false;
+    private bool NinjaModeInput=false;
     private Vector3 sneakRot = Vector3.zero;
-    private bool isHuman;
 
     private CharacterMovementHandler characterMovementHandler;
-    private NetworkCharacterController controler;
     private void Awake()
     {
-        
-        if(gameObject.GetComponent<Morph>())
-            isHuman=false;
-        else
-            isHuman=true;
         characterMovementHandler = GetComponent<CharacterMovementHandler>();
     }
     private void Start()
     {
-        controler=GetComponent<NetworkCharacterController>();
         Cursor.lockState = CursorLockMode.Locked;//TOIMPROVE: Utils
         Cursor.visible = false;
 
@@ -55,9 +47,13 @@ public class CharacterInputHandler : MonoBehaviour
             jumpInput = true;
         }
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             fireInput = true;
+        }
+         if(Input.GetButtonUp("Fire1"))
+        {
+            fireInput = false;
         }
 
         if (Input.GetButtonDown("Fire2") && canSneak)
@@ -71,29 +67,25 @@ public class CharacterInputHandler : MonoBehaviour
             sneakyInput = false;
         }
     
-        if(!isHuman && Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             dashInput=true;
         }
-        if(isHuman && canSprinting && Input.GetKeyDown(KeyCode.LeftShift)) 
+        if(RPCManager.Local.IsHuman() && canSprinting && Input.GetKeyDown(KeyCode.LeftShift)) 
         {
-            
 		    sprintInput=true;
 	    }
-        if(isHuman && Input.GetKeyUp(KeyCode.LeftShift) || !canSprinting) 
+        if(RPCManager.Local.IsHuman() && Input.GetKeyUp(KeyCode.LeftShift) || !canSprinting) 
         {
 		    sprintInput=false;
 	    }
-        
-        if(isHuman && Input.GetKeyDown(KeyCode.Z)) 
+        if(Input.GetKeyDown(KeyCode.N)) 
         {
-		    kneelingInput=true;
-            controler.Kneeling(cameraHandler);
+		    NinjaModeInput=true;
 	    }
-        if(isHuman && Input.GetKeyUp(KeyCode.Z))
+        if(Input.GetKeyUp(KeyCode.N)) 
         {
-		    kneelingInput=false;
-            controler.Standing(cameraHandler);
+		    NinjaModeInput=false;
 	    }
         moveInput.y += speedStep;
 
@@ -123,10 +115,9 @@ public class CharacterInputHandler : MonoBehaviour
 
         networkInputData.isSprintPressed = sprintInput;
 
-        networkInputData.isKneelingPressed = kneelingInput;
+        networkInputData.isNinjaModePressed = NinjaModeInput;
         
         jumpInput = false;
-        fireInput = false;
         dashInput = false;
         return networkInputData;
     }

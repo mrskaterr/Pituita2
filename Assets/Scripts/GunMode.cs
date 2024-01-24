@@ -4,13 +4,15 @@ using UnityEngine;
 using Fusion;
 public class GunMode : NetworkBehaviour
 {
-    [SerializeField] GameObject firstMode;
-    [SerializeField] GameObject secondMode;
+    [SerializeField] GameObject vacuumMode;
+    [SerializeField] GameObject vacuumMode2;
+    [SerializeField] GameObject UnmorphMode;
+    [SerializeField] GameObject UnmorphMode2;
     private bool canSwapMode = true;
-    [HideInInspector]public bool fireMode;
+    [HideInInspector]public bool isVacuumMode;
     void Start()
     {
-        fireMode = true;
+        isVacuumMode = true;
     }
 
     public void SwapMode()
@@ -21,17 +23,21 @@ public class GunMode : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_SwapMode()
     {
-        if(firstMode.activeInHierarchy && canSwapMode)
+        if(vacuumMode.activeInHierarchy && canSwapMode)
         { 
-            firstMode.SetActive(false);
-            secondMode.SetActive(true);
-            fireMode=false;
+            vacuumMode.SetActive(false);
+            vacuumMode2.SetActive(false);
+            UnmorphMode.SetActive(true);
+            UnmorphMode2.SetActive(true);
+            isVacuumMode=false;
         }
-        else if(secondMode.activeInHierarchy && canSwapMode)
+        else if(UnmorphMode.activeInHierarchy && canSwapMode)
         {
-            secondMode.SetActive(false);
-            firstMode.SetActive(true);
-            fireMode=true;;
+            UnmorphMode.SetActive(false);
+            UnmorphMode2.SetActive(false);
+            vacuumMode.SetActive(true);
+            vacuumMode2.SetActive(true);
+            isVacuumMode=true;;
         }
     } 
 }

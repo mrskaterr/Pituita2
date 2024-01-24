@@ -64,13 +64,13 @@ public class CharacterMovementHandler : NetworkBehaviour
             {
                 networkCharacterController.IsSprinting=false;
             }
-            if(networkInputData.isKneelingPressed)
+            if (networkInputData.isNinjaModePressed)
             {
-                networkCharacterController.isKneeling=true;
+                networkCharacterController.StartNinjaMode=true;
             }
             else
             {
-                networkCharacterController.isKneeling=false;    
+                networkCharacterController.StartNinjaMode=false;
             }
 
         }

@@ -12,5 +12,5 @@ public struct NetworkInputData : INetworkInput
     public NetworkBool isFirePressed;
     public NetworkBool isDashPressed;
     public NetworkBool isSprintPressed;
-    public NetworkBool isKneelingPressed;
+    public NetworkBool isNinjaModePressed;
 }

@@ -615,6 +615,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
+    Server: FUSION_WEAVER
     Standalone: FUSION_WEAVER
   additionalCompilerArguments: {}
   platformArchitecture: {}

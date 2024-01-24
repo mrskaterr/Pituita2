@@ -13,109 +13,60 @@ public class NetworkCharacterController : NetworkTransform
     public float jumpImpulse = 8.0f;
     public float acceleration = 10.0f;
     public float braking = 10.0f;
-    public float maxStamina=5f;
     public float maxSpeed = 2.0f;
-    public float runSpeed = 20f;
-    private float walkSpeed;
-    public float kneelingSpeed=1f;
-    public float rotationSpeed = 15.0f;
-    public float viewVerticalSpeed = 50;
-    public float DashSpeed=10f;
-    public int DashMaxAmount=2;
-    public int DashCurrentAmount=0;
-    
-    public float MaxDashTime=1f;
-    public float DashResetTime=100f;
-    private float currentDashTime;
-    private float currentDashResetTime;
+    public float walkSpeed;
+    private float originalWalkSpeed;
+    public float rotationSpeed;
+    public float viewVerticalSpeed;
     [Networked]
     [HideInInspector]
     public bool IsGrounded { get; set; }
     [HideInInspector]
     public bool StartDashing;
+    public bool StartNinjaMode;
     
     [HideInInspector]
     public bool IsSprinting;
-    private float cunrrentStamina=0;
-    [HideInInspector]
-    public bool isKneeling;
-
     [Networked]
     [HideInInspector]
     public Vector3 Velocity { get; set; }
     protected override Vector3 DefaultTeleportInterpolationVelocity => Velocity;
-    protected override Vector3 DefaultTeleportInterpolationAngularVelocity => new Vector3(0f, 0f, rotationSpeed);
-
-    [SerializeField] Hitbox hitbox;
-    private Vector3 orginalControlerCenter;
-    private float orginalHeighControler;
-    private Vector3 kneelingControlerCenter=new Vector3(0,-0.5f,0);
-    private float kneelingHeigh=1f; 
-
+    protected override Vector3 DefaultTeleportInterpolationAngularVelocity => new Vector3(0f, 0f, RotationSpeed());
     public CharacterController Controller { get; private set; }
-    private CharacterInputHandler inputHandler;
+    private WeaponHandler weaponHandler;
+    private SprintSystem sprintSystem;
+    private DashSystem dashSystem;
+    private NinjaSystem ninjaSystem;
+    private AudioHandler audioHandler;
+
+    void Start()
+    {
+        ninjaSystem = GetComponent<NinjaSystem>();
+        dashSystem =  GetComponent<DashSystem>();
+        weaponHandler = GetComponent<WeaponHandler>();
+        sprintSystem = GetComponent<SprintSystem>();
+        audioHandler = GetComponent<AudioHandler>();
+        
+    }
     protected override void Awake()
     {
         base.Awake();
         CacheController();
-        currentDashTime = MaxDashTime;
         walkSpeed=maxSpeed;
-        orginalHeighControler=Controller.height;
-        orginalControlerCenter=Controller.center;
-        inputHandler=GetComponent<CharacterInputHandler>();
+        originalWalkSpeed=walkSpeed;
+    
     }
     public override void FixedUpdateNetwork()
-    {
-        if(IsSprinting && cunrrentStamina>0f)
-        {
-            cunrrentStamina-=Time.deltaTime;
-            if(cunrrentStamina<=0f)
-                inputHandler.canSprinting=false;
-        }
-        else if(!IsSprinting && cunrrentStamina<=maxStamina)
-        {
-            cunrrentStamina+=Time.deltaTime;
-            if(cunrrentStamina>=maxStamina)
-                inputHandler.canSprinting=true;
-        }
+    {     
+        sprintSystem?.Sprint();
+        ninjaSystem?.NinjaMode(StartNinjaMode);
+        dashSystem?.Dash(StartDashing);
 
-      
-        if (StartDashing &&  DashCurrentAmount<DashMaxAmount )
-        {
-            DashCurrentAmount++;
-            currentDashTime = 0.0f;
-            currentDashResetTime= 0.0f;
-            StartDashing=false;
-        }
-        if (currentDashTime < MaxDashTime)
-        {
-            maxSpeed=DashSpeed;
-            currentDashTime += Time.fixedDeltaTime;
-        }
-        else
-        {
-            maxSpeed=walkSpeed;
-            currentDashResetTime += Time.fixedDeltaTime;
-            if(currentDashResetTime>=DashResetTime)
-                DashCurrentAmount=0;
-        }
     }
     public override void Spawned()
     {
         base.Spawned();
         CacheController();
-    }
-    public void Kneeling(LocalCameraHandler camera)
-    {
-        Controller.height=kneelingHeigh;
-        Controller.center=kneelingControlerCenter;
-        camera.ChangePositionCam(kneelingHeigh-orginalHeighControler);
-    }
-    public void Standing(LocalCameraHandler camera)
-    {
-        Controller.height=orginalHeighControler;
-        Controller.center=orginalControlerCenter;
-        camera.ChangePositionCam(orginalHeighControler-kneelingHeigh);
     }
 
     private void CacheController()
@@ -171,7 +122,8 @@ public class NetworkCharacterController : NetworkTransform
         }
         else
         {
-            horizontalVel = Vector3.ClampMagnitude(horizontalVel + direction * acceleration * deltaTime, isKneeling ? kneelingSpeed : IsSprinting ? runSpeed : maxSpeed);
+            if(IsGrounded)audioHandler.PlayStepAudio();
+            horizontalVel = Vector3.ClampMagnitude(horizontalVel + direction * acceleration * deltaTime, maxSpeed);
         }
 
         moveVelocity.x = horizontalVel.x;
@@ -182,9 +134,32 @@ public class NetworkCharacterController : NetworkTransform
         Velocity = (transform.position - previousPos) * Runner.Simulation.Config.TickRate;
         IsGrounded = Controller.isGrounded;
     }
+    public void MaxSpeed(bool _b)
+    {
+        if(_b)
+            walkSpeed=originalWalkSpeed;
+        else
+            walkSpeed=0.5f;
+    }
 
     public void Rotate(float _rotationInput)
     {
-        transform.Rotate(0, _rotationInput * Runner.DeltaTime * rotationSpeed, 0);
+        transform.Rotate(0, _rotationInput * Runner.DeltaTime * RotationSpeed(), 0);
+    }
+    public float RotationSpeed()//ViewVerticalSpeed()
+    { 
+        if(weaponHandler)
+            if(weaponHandler.isFiring)
+                return rotationSpeed * 0.1f;
+        return rotationSpeed;
+    }
+    public float ViewVerticalSpeed()
+    {
+        if(weaponHandler)
+            if(weaponHandler.isFiring)
+            return viewVerticalSpeed * 0.1f;
+        
+        return viewVerticalSpeed;
+
     }
 }
