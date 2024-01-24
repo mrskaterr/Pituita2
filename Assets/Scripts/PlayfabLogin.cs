@@ -110,4 +110,128 @@ public class PlayfabLogin : MonoBehaviour//TODO: Guest Mode, Remember Me, Mail O
         UIm.SetDisplayName(_result.DisplayName);
         OnCorrectNameProvided();
     }
+
+    public void GetLeaderboard()
+    {
+        var request = new GetLeaderboardRequest
+        {
+            StatisticName = "Wins",
+            StartPosition = 0,
+            MaxResultsCount = 3
+        };
+        PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
+    }
+
+    private void OnLeaderboardGet(GetLeaderboardResult _result)
+    {
+        for (int i = 0; i < _result.Leaderboard.Count; i++)
+        {
+            GetFavouriteCharacter(i, _result.Leaderboard[i].PlayFabId, _result.Leaderboard[i].DisplayName, _result.Leaderboard[i].StatValue);
+        }
+    }
+
+    private void GetFavouriteCharacter(int _index, string _playFabId, string _name, int _score)
+    {
+        int index = 1;
+
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest()
+        {
+            PlayFabId = _playFabId,
+            Keys = null
+        }, result =>
+        {
+            int tmp = -1;
+            if (result.Data.ContainsKey("John_Games"))
+            {
+                if (int.Parse(result.Data["John_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["John_Games"].Value);
+                    index = 1;
+                }
+                
+            }
+            if (result.Data.ContainsKey("Ted_Games"))
+            {
+                if (int.Parse(result.Data["Ted_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["Ted_Games"].Value);
+                    index = 2;
+                }
+            }
+            if (result.Data.ContainsKey("Zeki_Games"))
+            {
+                if (int.Parse(result.Data["Zeki_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["Zeki_Games"].Value);
+                    index = 3;
+                }
+            }
+            if (result.Data.ContainsKey("Todd_Games"))
+            {
+                if (int.Parse(result.Data["Todd_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["Todd_Games"].Value);
+                    index = 4;
+                }
+            }
+            if (result.Data.ContainsKey("Eevee_Games"))
+            {
+                if (int.Parse(result.Data["Eevee_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["Eevee_Games"].Value);
+                    index = 5;
+                }
+            }
+            if (result.Data.ContainsKey("Mitch_Games"))
+            {
+                if (int.Parse(result.Data["Mitch_Games"].Value) >= tmp)
+                {
+                    tmp = int.Parse(result.Data["Mitch_Games"].Value);
+                    index = 6;
+                }
+            }
+            UIm.userDatas[_index].SetData(_name, _score, index - 1);
+        }, error => { print("Leaderboard error."); });
+    }
+
+    private int result = 0;
+    private string roleID = "";
+    public void UpdatePlayerData(int _role)
+    {
+        roleID = _role switch
+        {
+            1 => "John_Games",
+            2 => "Ted_Games",
+            3 => "Zeki_Games",
+            4 => "Todd_Games",
+            5 => "Eevee_Games",
+            6 => "Mitch_Games"
+        };
+
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataReceived, OnError);
+    }
+
+    private void OnDataReceived(GetUserDataResult _result)
+    {
+        if (_result.Data != null && _result.Data.ContainsKey(roleID))
+        {
+            result = int.Parse(_result.Data[roleID].Value);
+            //print(roleID + " = " + result);
+        }
+        else
+        {
+            result = 0;
+        }
+
+        var request = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {roleID, (result+1).ToString() }
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(request, OnDataSent, OnError);
+    }
+
+    private void OnDataSent(UpdateUserDataResult _result) { }
 }

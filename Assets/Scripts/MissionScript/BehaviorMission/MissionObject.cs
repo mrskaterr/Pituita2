@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MissionObject : MonoBehaviour, IInteractable 
 {
     [HideInInspector] public MissionData mission;
-    static ScoreManager scoreManager;
+
     private const string defaultLayerName = "Default";
     private const string interactableLayerName = "Interactable";
-    void Start()
-    {
-        scoreManager=GameManager.instance.GetComponent<ScoreManager>();
-    }
+
     public void Disable()
     {
         int layerIndex = LayerMask.NameToLayer(defaultLayerName);
@@ -34,9 +30,8 @@ public class MissionObject : MonoBehaviour, IInteractable
     {
         mission.NextStep();
     }
-    public void NextTask(int score=0)
+    public void NextTask()
     {
-        scoreManager.AddScore(score);
         mission.NextStep();
     }
 }

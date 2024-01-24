@@ -9,8 +9,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private TMP_Text spaceNameTxt;
     [SerializeField] private TMP_Text rotationTxt;
-    [SerializeField] private GameObject crosshair;
-    [SerializeField] private GameObject onHitImage;
+    [SerializeField] private GameObject crosshair, crosshair2;
+    [SerializeField] private Animator onHitImage;
     [SerializeField] private GameObject miniGameParent;
 
     [SerializeField] private TMP_Text interactName;
@@ -46,6 +46,7 @@ public class PlayerHUD : MonoBehaviour
         {
             rotationTxt.text = transform.eulerAngles.y.ToString("0");
         }
+        spaceNameTxt.text = GameManager.instance.GetComponent<SpaceManager>().GetName(transform.position);
     }
 
     public void SetSpaceName(string _name)
@@ -54,8 +55,13 @@ public class PlayerHUD : MonoBehaviour
     }
 
     public void ToggleCrosshair(bool _p) { crosshair.SetActive(_p); }
-    public void ToggleOnHitImage(bool _p) { onHitImage.SetActive(_p); }
+    //public void ToggleOnHitImage(bool _p) { onHitImage.SetActive(_p); }
     public void ToggleMiniGame(bool _p) { miniGameParent.SetActive(_p); }
+
+    public void PlayHitAnimation()
+    {
+        onHitImage.Play("Shake", -1, 0);
+    }
 
     public void InitInteract(string _interactName, float _fill)
     {
@@ -75,5 +81,11 @@ public class PlayerHUD : MonoBehaviour
     {
         interactName.gameObject.SetActive(false);
         interactBar.gameObject.SetActive(false);
+    }
+
+    public void SetCrosshair(byte _index)
+    {
+        crosshair.SetActive(_index == 0);
+        crosshair2.SetActive(_index == 1);
     }
 }

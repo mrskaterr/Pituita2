@@ -62,6 +62,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Button> roleButtons;
     [SerializeField] private Sprite[] roleIcons;
     //[SerializeField] private List<PlayerDataHandler> playerDataHandlers = new List<PlayerDataHandler>(); custom data class
+    [Foldout("Leaderboard", true)]
+    public UserData[] userDatas;
 
     private const string joinTxt = "Join";
     private const string createTxt = "Create";
@@ -348,6 +350,19 @@ public class UIManager : MonoBehaviour
     private void ActiveRoleButton(int _index, bool _p)
     {
         roleButtons[_index].interactable = _p;
+    }
+
+    public int GetAvailableRole()
+    {
+        for (int i = 1; i < roleButtons.Count; i++)
+        {
+            if (roleButtons[i].interactable)
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 
     //Quick Game stuff

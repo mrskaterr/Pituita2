@@ -13,10 +13,13 @@ public class Morph : NetworkBehaviour
     [SerializeField] private List<GameObject> morphingObjects = new List<GameObject>();
     [SerializeField] private LocalCameraHandler cameraHandler;
     private CharacterInputHandler inputHandler;
+    private PlayerHUD playerHUD;
+    [SerializeField] private ParticleSystem particles;
 
     private void Awake()
     {
         inputHandler = GetComponent<CharacterInputHandler>();
+        playerHUD = GetComponent<PlayerHUD>();
     }
 
     private static void OnIndexChange(Changed<Morph> _changed)
@@ -34,10 +37,13 @@ public class Morph : NetworkBehaviour
         {
             morphingObjects[i].SetActive(index == i);
         }
+        if (index != -1) { particles.Play(); }
+        playerHUD.SetCrosshair((byte) (index == -1 ? 0 : 100));
     }
     [Rpc]
     public void RPC_UnMorph()
     {
         index=-1;
+        playerHUD.SetCrosshair(0);
     }
 }

@@ -138,9 +138,9 @@ public class NetworkCharacterController : NetworkTransform
     }
     public virtual void Jump(bool ignoreGrounded = false, float? overrideImpulse = null)
     {
-        
         if (IsGrounded || ignoreGrounded)
         {
+            IsGrounded = false;
             var newVel = Velocity;
             newVel.y += overrideImpulse ?? jumpImpulse;
             Velocity = newVel;
@@ -154,7 +154,7 @@ public class NetworkCharacterController : NetworkTransform
 
         direction = direction.normalized;
 
-        if (IsGrounded && moveVelocity.y < 0)
+        if (IsGrounded)
         {
             moveVelocity.y = 0f;
         }

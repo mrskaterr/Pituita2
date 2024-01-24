@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
 
 public class InteractableHold : MissionObject, IInteractableHold
@@ -19,6 +18,21 @@ public class InteractableHold : MissionObject, IInteractableHold
     private int iterator=0;
     [SerializeField] private UnityEvent step;
     [SerializeField] private UnityEvent completed;
+    float endTime;
+    PlayerHUD blobHud;
+
+    private void Update()
+    {
+        if (Time.time < endTime)
+        {
+            percent += Time.deltaTime;
+        }
+        else
+        {
+            percent = 0;
+        }
+    }
+
     private void Step()
     {
         step.Invoke();
@@ -31,7 +45,8 @@ public class InteractableHold : MissionObject, IInteractableHold
     }
     public void StartInteract(GameObject @object)
     {
-        
+        //TODO: check if Todd, if yes then skip
+        blobHud = @object.GetComponent<PlayerHUD>();
         if(@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed)!=null)
         {
             itemToDestroy=@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed);
@@ -59,12 +74,11 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     private IEnumerator Holding()
     {
-        while (percent < holdTime)
-        {
-            yield return new WaitForSeconds(interval);
-            percent += interval;
-        }
+        percent = 0;
+        endTime = Time.time + holdTime;
+        yield return new WaitForSeconds(holdTime);
         OnFill();
+        blobHud.StopInteract();
     }
     public void DestroyUsedItem()
     {

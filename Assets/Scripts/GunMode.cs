@@ -8,6 +8,8 @@ public class GunMode : NetworkBehaviour
     [SerializeField] GameObject secondMode;
     private bool canSwapMode = true;
     [HideInInspector]public bool fireMode;
+    [SerializeField] private PlayerHUD playerHUD;
+
     void Start()
     {
         fireMode = true;
@@ -26,14 +28,16 @@ public class GunMode : NetworkBehaviour
             firstMode.SetActive(false);
             secondMode.SetActive(true);
             fireMode=false;
+            playerHUD.SetCrosshair(1);
         }
         else if(secondMode.activeInHierarchy && canSwapMode)
         {
             secondMode.SetActive(false);
             firstMode.SetActive(true);
-            fireMode=true;;
+            fireMode=true;
+            playerHUD.SetCrosshair(0);
         }
-    } 
+    }
 }
 
 

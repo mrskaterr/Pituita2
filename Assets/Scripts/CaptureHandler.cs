@@ -58,7 +58,7 @@ public class CaptureHandler : NetworkBehaviour
         cameraHandler.ChangePerspective(1);
         isFree = false;
         HUD.ToggleCrosshair(false);
-        HUD.ToggleOnHitImage(false);
+        //HUD.ToggleOnHitImage(false);
         isCarried = true;
     }
 
@@ -66,6 +66,7 @@ public class CaptureHandler : NetworkBehaviour
     public void RPC_PutDown()
     {
         transform.parent = null;
+        transform.position -= .3f * Vector3.up;
         isCarried = false;
         cameraHandler.ChangePerspective(-1);
     }
@@ -84,8 +85,8 @@ public class CaptureHandler : NetworkBehaviour
         transform.parent = null;
         isCarried = false;
         cameraHandler.ChangePerspective(-1);
-        healthSystem.Restore();
-        HUD.ToggleMiniGame(false);
+        healthSystem?.Restore();
+        HUD?.ToggleMiniGame(false);
     }
 
     public static void OnCapture(Changed<CaptureHandler> _changed)

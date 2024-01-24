@@ -2,18 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using UnityEngine.Events;
 
 public class WeaponHandler : NetworkBehaviour
 {
     [Networked(OnChanged = nameof(OnFireChanged))]
     public bool isFiring { get; set; }
 
-    [SerializeField] private ParticleSystem fireParticleSystem;
+    [SerializeField] private ArcHandler fireVFX;
+    [SerializeField] private Transform target;
+    [SerializeField] private GameObject unmorphVFX;
     [SerializeField] private Transform aimPoint;
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private GameObject hitMarker;
     [SerializeField] private GunMode gunMode;
+    private bool isGadgetActive;
+    [SerializeField] private UnityEvent gadgetAction;
 
+    [SerializeField] private GameObject[] gun;
+    [SerializeField] private GameObject gadget;
+    Vector3 aim;
+    [SerializeField] private int damage = 1;
 
     private float lastTimeFired = 0;
 
@@ -21,6 +30,10 @@ public class WeaponHandler : NetworkBehaviour
     {
         if(GetInput(out NetworkInputData _networkInputData))
         {
+            if(_networkInputData.isFirePressed && isGadgetActive)
+            {
+                gadgetAction?.Invoke();
+            }
             if (_networkInputData.isFirePressed && gunMode.fireMode)
             {
                 Fire(_networkInputData.aimForwardVector);
@@ -29,7 +42,31 @@ public class WeaponHandler : NetworkBehaviour
             {
                 UnMorph(_networkInputData.aimForwardVector);
             }
+            aim = _networkInputData.aimForwardVector;
         }
+    }
+
+    private void Update()
+    {
+        if (gadget != null && Input.GetAxis("Mouse ScrollWheel") != 0) { RPC_SwapGadget(); }
+        if (Object.HasInputAuthority && Input.GetMouseButton(0) && !isGadgetActive)
+        {
+            if (gunMode.fireMode)
+            {
+                fireVFX.Target = target;
+            }
+            else
+            {
+                unmorphVFX.SetActive(false);
+                RaycastHit[] tmp = Physics.RaycastAll(aimPoint.position, aim, 100);
+                if (tmp.Length > 0)
+                {
+                    unmorphVFX.SetActive(true);
+                    unmorphVFX.transform.position = tmp[0].point;
+                }
+            }
+        }
+        else {  fireVFX.Target = null;}
     }
 
     private void UnMorph(Vector3 _aimForwardVector)
@@ -53,12 +90,12 @@ public class WeaponHandler : NetworkBehaviour
     }
     private void Fire(Vector3 _aimForwardVector)
     {
-        if(Time.time - lastTimeFired < 1f)//TODO: MN
+        if(Time.time - lastTimeFired < .05f)//TODO: MN
         {
             return;
         }
 
-        StartCoroutine(FireFX());
+        //StartCoroutine(FireFX());
 
         Runner.LagCompensation.Raycast(aimPoint.position, _aimForwardVector, 100, Object.InputAuthority, out var hitInfo, targetLayerMask, HitOptions.IncludePhysX); //TODO: MN
 
@@ -73,7 +110,7 @@ public class WeaponHandler : NetworkBehaviour
 
             if (Object.HasStateAuthority && hitInfo.Hitbox.transform.root.GetComponent<Morph>().index==-1)
             {
-                hitInfo.Hitbox.transform.root.GetComponent<HealthSystem>().RPC_OnTakeDamage();
+                hitInfo.Hitbox.transform.root.GetComponent<HealthSystem>().RPC_OnTakeDamage(damage);
                 StartCoroutine(HitFX());
             }
             isHitOtherPlayer = true;
@@ -98,8 +135,9 @@ public class WeaponHandler : NetworkBehaviour
     private IEnumerator FireFX()
     {
         isFiring = true;
-        fireParticleSystem.Play();
+        fireVFX.Target = target;
         yield return new WaitForSeconds(.09f);//TOIMPROVE: define this
+        fireVFX.Target = null;
         isFiring = false;
     }
 
@@ -128,7 +166,29 @@ public class WeaponHandler : NetworkBehaviour
     {
         if (!Object.HasInputAuthority)
         {
-            fireParticleSystem.Play();
+            //fireParticleSystem.Play();
         }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_SwapGadget()
+    {
+        if (isGadgetActive)
+        {
+            gadget.SetActive(false);
+            foreach (GameObject part in gun)
+            {
+                part.SetActive(true);
+            }
+        }
+        else
+        {
+            gadget.SetActive(true);
+            foreach (GameObject part in gun)
+            {
+                part.SetActive(false);
+            }
+        }
+        isGadgetActive = !isGadgetActive;
     }
 }

@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Image = UnityEngine.UI.Image;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
 
 public class Equipment : MonoBehaviour
 {
     public Transform itemHolder;
-    [SerializeField] TMP_Text nameItem;
-    [SerializeField] Image iconItem;
+    [SerializeField] private GameObject icon;
+//[SerializeField] TMP_Text nameItem;
+    void Update()
+    {
+        icon.SetActive(itemHolder.childCount != 0);
+        //nameItem.text=itemHolder.GetChild(0).name;
+    }
     public Transform isHeHad(int ID)
     {
         int count=itemHolder.childCount;
@@ -29,16 +32,10 @@ public class Equipment : MonoBehaviour
         if(itemHolder.childCount==0)
         {
             t.SetParent(itemHolder);
-            //iconItem.sprite = t.GetComponent<Item>().icon;
-            nameItem.text=t.name;
+            //nameItem.text=t.name;
             return true;
         }
         return false;
-    }
-    public void ResetIcon()
-    {
-        //iconItem.sprite=null;
-        nameItem.text="";
     }
 
 }

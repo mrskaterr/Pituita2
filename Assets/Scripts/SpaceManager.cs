@@ -19,7 +19,12 @@ public class SpaceManager : MonoBehaviour
                 float minZ = spaces[i].centerPoint.position.z - spaces[i].size.z / 2f;
                 if(_pos.z >= minZ && _pos.z <= maxZ)
                 {
-                    return spaces[i].name;
+                    float maxY = spaces[i].centerPoint.position.y + spaces[i].size.y / 2f;
+                    float minY = spaces[i].centerPoint.position.y - spaces[i].size.y / 2f;
+                    if (_pos.y >= minY && _pos.y <= maxY)
+                    {
+                        return spaces[i].name;
+                    }
                 }
             }
             continue;
