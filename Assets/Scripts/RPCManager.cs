@@ -13,7 +13,9 @@ public class RPCManager : NetworkBehaviour
     [HideInInspector] public int roleIndex { get; set; } = 0;
     [Networked(OnChanged = nameof(OnIsReadyChange))]
     public bool isReady { get; set; } = false;
-    [SerializeField] private GameObject hunterAvatar;
+    [SerializeField] private GameObject hunterAvatarA;
+    [SerializeField] private GameObject hunterAvatarB;
+    [SerializeField] private GameObject hunterAvatarC;
     [SerializeField] private GameObject blobAvatarA;
     [SerializeField] private GameObject blobAvatarB;
     [SerializeField] private GameObject blobAvatarC;
@@ -63,6 +65,8 @@ public class RPCManager : NetworkBehaviour
         Manager.Instance.UIManager.RefreshList();
         if (Manager.Instance.lobbyManager.ArePlayersReady())
         {
+            if (roleIndex == 0) { roleIndex = Manager.Instance.UIManager.GetAvailableRole(); }
+            Manager.Instance.playfabLogin.UpdatePlayerData(roleIndex);
             StartCoroutine(Wait());
         }
     }
@@ -92,9 +96,9 @@ public class RPCManager : NetworkBehaviour
     {
         return roleIndex switch
         {
-            1 => hunterAvatar,
-            2 => hunterAvatar,
-            3 => hunterAvatar,
+            1 => hunterAvatarA,
+            2 => hunterAvatarB,
+            3 => hunterAvatarC,
             4 => blobAvatarA,
             5 => blobAvatarB,
             6 => blobAvatarC,

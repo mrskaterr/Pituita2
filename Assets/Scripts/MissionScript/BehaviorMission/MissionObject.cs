@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MissionObject : MonoBehaviour, IInteractable 
 {
@@ -9,12 +8,10 @@ public class MissionObject : MonoBehaviour, IInteractable
     static ScoreManager scoreManager;
     private const string defaultLayerName = "Default";
     private const string interactableLayerName = "Interactable";
-    void Start()
-    {
-        scoreManager=GameManager.instance.GetComponent<ScoreManager>();
-    }
+
     public void Disable()
     {
+        scoreManager = GameManager.instance.GetComponent<ScoreManager>();
         int layerIndex = LayerMask.NameToLayer(defaultLayerName);
         gameObject.layer = layerIndex;
     }
@@ -36,10 +33,9 @@ public class MissionObject : MonoBehaviour, IInteractable
     }
     public void NextTask(int score)
     {
-        scoreManager.AddScore(score);
         mission.NextStep();
     }
-        public void NextTask()
+    public void NextTask()
     {
         scoreManager.AddScore(5);
         mission.NextStep();

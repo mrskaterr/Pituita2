@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
-using TMPro;
+using UnityEngine.UI;
 
 public class HealthSystem : NetworkBehaviour
 {
@@ -11,8 +11,12 @@ public class HealthSystem : NetworkBehaviour
     [HideInInspector]
     [Networked(OnChanged = nameof(OnStateChanged))]
     public bool isDead { get; set; }
-    [SerializeField]  int MaxHp;
-    [SerializeField] private TMP_Text healthTxt;
+
+    private bool isInitialized = false;
+
+    [SerializeField] private int startingHP = 100;
+
+    [SerializeField] private Image healthBar;
     [SerializeField] private GameObject jar;
     [SerializeField] private GameObject body;
     [SerializeField] float timeToRegeneration=5f;
@@ -36,7 +40,7 @@ public class HealthSystem : NetworkBehaviour
     {
 
         coroutines=new List<Coroutine>();
-        HP = MaxHp;
+        HP = startingHP;
         isDead = false;
         //isInitialized = true;
     }
@@ -46,49 +50,31 @@ public class HealthSystem : NetworkBehaviour
         
         jar.SetActive(isDead && !captureHandler.isCarried);
     }
-
+    
     private IEnumerator OnHit()
     {
-        networkController.MaxSpeed(false);
-        //if (Object.HasInputAuthority)
-        //{
-            
-        //}
-        //else { yield return null; }
-        // if(isDead)
-        // {
-         
-        // }
-        HUD.ToggleOnHitImage(true);
-
         yield return new WaitForSeconds(2f);;
         networkController.MaxSpeed(true);
-
-        if (!isDead)
-        {
-            HUD.ToggleOnHitImage(false);
-        }
-        else
-        {
-            HUD.ToggleMiniGame(true);
-        }
+        HUD.PlayHitAnimation();
     }
     IEnumerator HealthRegeneration()
     {
         yield return new WaitForSeconds(timeToRegeneration);
-        while(!isDead && HP <MaxHp)
+        while(!isDead && HP < startingHP)
         {
             HP ++;
             yield return new WaitForSeconds(timeToStepRegeneration);
         }
     }
     [Rpc]//TOIMPROVE: source & target
-    public void RPC_OnTakeDamage()
+    public void RPC_OnTakeDamage(int _dmg)
     {
-
-        HP--;
-        for(int i=0;i< coroutines.Count;i++)StopCoroutine(coroutines[i]);        
+        HP -= _dmg;
+        for(int i=0;i< coroutines.Count;i++)
+            StopCoroutine(coroutines[i]);
+        
         coroutines.Clear();
+        
         coroutines.Add( StartCoroutine(HealthRegeneration()));
 
 //        Debug.Log($"{transform.name} took damage got {HP} left");
@@ -102,6 +88,7 @@ public class HealthSystem : NetworkBehaviour
             controller.enabled = false;
             body.SetActive(false);
             captureHandler.isFree = false;
+            HUD.ToggleMiniGame(true);
             return;
         }
     }
@@ -124,12 +111,17 @@ public class HealthSystem : NetworkBehaviour
 
     private void OnHPReduced()
     {
-        //if (isInitialized) { return; }
-        // StopAllCoroutines();
         StartCoroutine(OnHit());
+        if (!isInitialized) { return; }
+
+        OnHit();
     }
 
-    private void DebugHP() { healthTxt.text = HP.ToString(); }
+    private void DebugHP() 
+    { 
+        healthBar.fillAmount = (float)HP/(float)startingHP;
+        healthBar.transform.parent.gameObject.SetActive(healthBar.fillAmount < 1f && healthBar.fillAmount > 0f);
+    }
 
     private static void OnStateChanged(Changed<HealthSystem> _changed)
     {
@@ -138,11 +130,11 @@ public class HealthSystem : NetworkBehaviour
 
     public void Restore()
     {
-        HP = MaxHp;
+        HP = startingHP;
         isDead = false;
         controller.enabled = true;
         body.SetActive(true);
         HUD.ToggleCrosshair(true);
-        HUD.ToggleOnHitImage(false);
+        //HUD.ToggleOnHitImage(false);
     }
 }

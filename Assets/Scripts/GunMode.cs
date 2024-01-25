@@ -10,6 +10,7 @@ public class GunMode : NetworkBehaviour
     [SerializeField] GameObject UnmorphMode2;
     private bool canSwapMode = true;
     [HideInInspector]public bool isVacuumMode;
+    [SerializeField] private PlayerHUD playerHUD;
     void Start()
     {
         isVacuumMode = true;
@@ -30,6 +31,7 @@ public class GunMode : NetworkBehaviour
             UnmorphMode.SetActive(true);
             UnmorphMode2.SetActive(true);
             isVacuumMode=false;
+            playerHUD.SetCrosshair(1);
         }
         else if(UnmorphMode.activeInHierarchy && canSwapMode)
         {
@@ -38,8 +40,9 @@ public class GunMode : NetworkBehaviour
             vacuumMode.SetActive(true);
             vacuumMode2.SetActive(true);
             isVacuumMode=true;;
+            playerHUD.SetCrosshair(0);
         }
-    } 
+    }
 }
 
 

@@ -1,5 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/VFX/Impact.prefab.meta
 guid: 22477c4a2728aa54994e4b42f7d60ddf
+========
+guid: 81d85cc5d40a39348ab78922f11e0fb9
+labels:
+- FusionPrefab
+>>>>>>>> dave:Assets/Prefabs/Characters/John.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

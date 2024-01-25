@@ -30,4 +30,10 @@ public class Manager : MonoBehaviour
     public UIManager UIManager;
     public PlayfabLogin playfabLogin;
     public LobbyManagerV2 lobbyManager;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }

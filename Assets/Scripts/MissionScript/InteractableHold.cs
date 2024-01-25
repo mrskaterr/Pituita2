@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
 
 public class InteractableHold : MissionObject, IInteractableHold
 {
     [SerializeField] EnumItem.Item ItemToNeed;
     public int itemAmount=1;
+    [SerializeField] bool oneInteraction;
     [SerializeField] protected float holdTime = 1f;
     public string desc = "Opening ...";
     //public string Description { get; protected set; } = "Opening ...";
@@ -19,8 +19,21 @@ public class InteractableHold : MissionObject, IInteractableHold
     [Space]
     [SerializeField] private UnityEvent step;
     [SerializeField] private UnityEvent completed;
-    public bool oneStep=true;
+    float endTime;
+    PlayerHUD blobHud;
 
+
+    private void Update()
+    {
+        if (Time.time < endTime)
+        {
+            percent += Time.deltaTime;
+        }
+        else
+        {
+            percent = 0;
+        }
+    }
 
     private void Step()
     {
@@ -30,15 +43,16 @@ public class InteractableHold : MissionObject, IInteractableHold
     private void Completed()
     {
         completed.Invoke();
-        if(oneStep)NextTask();
+        if(oneInteraction) NextTask();
     }
     public void StartInteract(GameObject @object)
     {
-        
+        //TODO: check if Todd, if yes then skip
+        blobHud = @object.GetComponent<PlayerHUD>();
         if(@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed)!=null)
         {
             itemToDestroy=@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed);
-            @object.GetComponent<AudioHandler>().InteractLoading(true);
+            //@object.GetComponent<AudioHandler>().InteractLoading(true);
             StartCoroutine(Holding(@object));
         }    
         else
@@ -47,7 +61,7 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     public void StopInteract(GameObject @object)
     {
-        @object.GetComponent<AudioHandler>().InteractLoading(false);
+       // @object.GetComponent<AudioHandler>().InteractLoading(false);
         StopAllCoroutines();
         if (!saveProgress)
         {
@@ -57,8 +71,8 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     public virtual void OnFill(GameObject @object)
     {
-        @object.GetComponent<AudioHandler>().InteractLoading(false);
-        @object.GetComponent<AudioHandler>().InteractDone();
+        //@object.GetComponent<AudioHandler>().InteractLoading(false);
+        //@object.GetComponent<AudioHandler>().InteractDone();
         Step();
         if(itemAmount<=iterator)
             Completed();
@@ -66,12 +80,11 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     private IEnumerator Holding(GameObject @object)
     {
-        while (percent < holdTime)
-        {
-            yield return new WaitForSeconds(interval);
-            percent += interval;
-        }
+        percent = 0;
+        endTime = Time.time + holdTime;
+        yield return new WaitForSeconds(holdTime);
         OnFill(@object);
+        blobHud.StopInteract();
     }
     public void DestroyUsedItem()
     {

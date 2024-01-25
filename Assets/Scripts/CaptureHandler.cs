@@ -11,7 +11,7 @@ public class CaptureHandler : NetworkBehaviour
     private CarryGlobal carryGlobal;
     private HealthSystem healthSystem;
     private PlayerHUD HUD;
-    private AudioHandler audioHandler;
+    //private AudioHandler audioHandler;
 
     [Networked(OnChanged = nameof(OnChangeRelease))]
     public bool isFree { get; set; } = true;
@@ -28,7 +28,7 @@ public class CaptureHandler : NetworkBehaviour
     private void Start()
     {
         Invoke(nameof(Init), 2);
-        audioHandler = GetComponent<AudioHandler>();
+        //audioHandler = GetComponent<AudioHandler>();
     }
 
     private void Init()
@@ -61,15 +61,16 @@ public class CaptureHandler : NetworkBehaviour
         cameraHandler.ChangePerspective(1);
         isFree = false;
         HUD.ToggleCrosshair(false);
-        HUD.ToggleOnHitImage(false);
+        //HUD.ToggleOnHitImage(false);
         isCarried = true;
-        audioHandler.PlayClip(jarAudioClip);
+        //audioHandler.PlayClip(jarAudioClip);
     }
 
     [Rpc]
     public void RPC_PutDown()
     {
         transform.parent = null;
+        transform.position -= .3f * Vector3.up;
         isCarried = false;
         cameraHandler.ChangePerspective(-1);
     }
@@ -88,8 +89,8 @@ public class CaptureHandler : NetworkBehaviour
         transform.parent = null;
         isCarried = false;
         cameraHandler.ChangePerspective(-1);
-        healthSystem.Restore();
-        HUD.ToggleMiniGame(false);
+        healthSystem?.Restore();
+        HUD?.ToggleMiniGame(false);
     }
 
     public static void OnCapture(Changed<CaptureHandler> _changed)

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/(AUTO) LoadingScreenCanvas.prefab.meta
 guid: 92e0647784510a147b74fe1928177be4
+========
+guid: 91fec6ee0099016489ecb65662bec874
+>>>>>>>> dave:Assets/Models/mapa3 1.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

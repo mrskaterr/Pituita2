@@ -316,6 +316,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4399300449367002551}
   - component: {fileID: 4399300449367002550}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 4399300449367002549}
+>>>>>>> dave
   m_Layer: 0
   m_Name: Arc
   m_TagString: Untagged
@@ -368,6 +372,22 @@ MonoBehaviour:
   radiusB: -0.15
   rotateSpeedA: 100
   rotateSpeedB: 100
+<<<<<<< HEAD
+=======
+--- !u!114 &4399300449367002549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4399300449367002544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd0b814c90d782847b4fe5362b693b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testTarget: {fileID: 4399300448398099262}
+>>>>>>> dave
 --- !u!1 &4399300449504739520
 GameObject:
   m_ObjectHideFlags: 0

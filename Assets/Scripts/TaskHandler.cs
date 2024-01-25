@@ -5,42 +5,44 @@ using TMPro;
 
 public class TaskHandler : MonoBehaviour
 {
-    [SerializeField] TMP_Text progressTxt;
+    //[SerializeField] TMP_Text progressTxt;
     [SerializeField] TMP_Text toDo;
-    int randomRoom=-1;
+    int index = 0;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        
-        Debug.Log(randomRoom);
-        Invoke(nameof(Init), 3);
+        yield return new WaitForSeconds(2.1f);
+        index = GameManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
     }
 
     void Update()
     {
-        if(randomRoom==-1) randomRoom = GameManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
-        if (toDo)toDo.text=GameManager.instance.missionManager.rooms[randomRoom].missions[0].currentStep.description;    
-        
-    }
-    private void Init()
-    {
-        List<MissionData> missions = GameManager.instance.missionManager.missions;
-
-        for (int i = 0; i < missions.Count; i++)
+        if(GameManager.instance == null) { return; }
+        var mission = GameManager.instance.missionManager.rooms[index].missions[0];
+        if (toDo.text != null)
         {
-            missions[i].onDone += CheckProgress;
+            toDo.text = mission.isDone ? "Mission accomplished" : mission.currentStep.description;
         }
     }
+    //private void Init()
+    //{
+    //    List<MissionData> missions = GameManager.instance.missionManager.missions;
 
-    private void CheckProgress()
-    {
-        List<MissionData> missions = GameManager.instance.missionManager.missions;
-        int c = 0;
-        for (int i = 0; i < missions.Count; i++)
-        {
-            if (missions[i].isDone) { c++; }
-        }
+    //    for (int i = 0; i < missions.Count; i++)
+    //    {
+    //        missions[i].onDone += CheckProgress;
+    //    }
+    //}
+
+    //private void CheckProgress()
+    //{
+    //    List<MissionData> missions = GameManager.instance.missionManager.missions;
+    //    int c = 0;
+    //    for (int i = 0; i < missions.Count; i++)
+    //    {
+    //        if (missions[i].isDone) { c++; }
+    //    }
         
-        progressTxt.text = $"{c} / {missions.Count}";
-    }
+    //    progressTxt.text = $"{c} / {missions.Count}";
+    //}
 }

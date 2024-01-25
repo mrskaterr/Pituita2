@@ -34,18 +34,18 @@ public class NetworkCharacterController : NetworkTransform
     protected override Vector3 DefaultTeleportInterpolationAngularVelocity => new Vector3(0f, 0f, RotationSpeed());
     public CharacterController Controller { get; private set; }
     private WeaponHandler weaponHandler;
-    private SprintSystem sprintSystem;
-    private DashSystem dashSystem;
-    private NinjaSystem ninjaSystem;
-    private AudioHandler audioHandler;
+    //private SprintSystem sprintSystem;
+    //private DashSystem dashSystem;
+    //private NinjaSystem ninjaSystem;
+    //private AudioHandler audioHandler;
 
     void Start()
     {
-        ninjaSystem = GetComponent<NinjaSystem>();
-        dashSystem =  GetComponent<DashSystem>();
+        //ninjaSystem = GetComponent<NinjaSystem>();
+        //dashSystem =  GetComponent<DashSystem>();
         weaponHandler = GetComponent<WeaponHandler>();
-        sprintSystem = GetComponent<SprintSystem>();
-        audioHandler = GetComponent<AudioHandler>();
+        //sprintSystem = GetComponent<SprintSystem>();
+       // audioHandler = GetComponent<AudioHandler>();
         
     }
     protected override void Awake()
@@ -58,9 +58,9 @@ public class NetworkCharacterController : NetworkTransform
     }
     public override void FixedUpdateNetwork()
     {     
-        sprintSystem?.Sprint();
-        ninjaSystem?.NinjaMode(StartNinjaMode);
-        dashSystem?.Dash(StartDashing);
+       // sprintSystem?.Sprint();
+        //ninjaSystem?.NinjaMode(StartNinjaMode);
+        //ashSystem?.Dash(StartDashing);
 
     }
     public override void Spawned()
@@ -89,9 +89,9 @@ public class NetworkCharacterController : NetworkTransform
     }
     public virtual void Jump(bool ignoreGrounded = false, float? overrideImpulse = null)
     {
-        
         if (IsGrounded || ignoreGrounded)
         {
+            IsGrounded = false;
             var newVel = Velocity;
             newVel.y += overrideImpulse ?? jumpImpulse;
             Velocity = newVel;
@@ -105,7 +105,7 @@ public class NetworkCharacterController : NetworkTransform
 
         direction = direction.normalized;
 
-        if (IsGrounded && moveVelocity.y < 0)
+        if (IsGrounded)
         {
             moveVelocity.y = 0f;
         }
@@ -122,7 +122,7 @@ public class NetworkCharacterController : NetworkTransform
         }
         else
         {
-            if(IsGrounded)audioHandler.PlayStepAudio();
+            //if(IsGrounded)audioHandler.PlayStepAudio();
             horizontalVel = Vector3.ClampMagnitude(horizontalVel + direction * acceleration * deltaTime, maxSpeed);
         }
 

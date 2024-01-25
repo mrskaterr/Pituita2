@@ -8,13 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Plant
-  m_Shader: {fileID: -6465566751694194690, guid: 4dfe066208b875843a786f819cc8ee24, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 68c62db5743076f44a5dd0c8730ff73d, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3050
+  m_CustomRenderQueue: 2050
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -121,8 +121,8 @@ Material:
     - _LightingCutoff: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineDepthSensitivity: 0.56
-    - _OutlineNormalsSensitivity: 0.382
+    - _OutlineDepthSensitivity: 1
+    - _OutlineNormalsSensitivity: 1
     - _OutlineThickness: 1
     - _Parallax: 0.005
     - _QueueControl: 0

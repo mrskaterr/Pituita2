@@ -16,13 +16,8 @@ public class ArcHandler : MonoBehaviour
 
     [SerializeField] private float radiusA, radiusB;
     [SerializeField] private float rotateSpeedA, rotateSpeedB;
-    [SerializeField] private Transform Test;
 
     private float angleA, angleB;
-    public void ResetTarget()
-    {
-        Target=Test;
-    }
 
     public Transform Target
     {
@@ -57,7 +52,7 @@ public class ArcHandler : MonoBehaviour
 
     private void SetVFX()
     {
-        vfx.enabled = target != null ;
+        vfx.enabled = target != null;
         //StopAllCoroutines();
         //StartCoroutine(Toggle());
 
