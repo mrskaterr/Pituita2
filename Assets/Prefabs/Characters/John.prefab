@@ -5077,7 +5077,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 708609455920361692}
-  - component: {fileID: 7045311374640270988}
   m_Layer: 16
   m_Name: DoomerBooger (1)
   m_TagString: Untagged
@@ -5107,25 +5106,6 @@ Transform:
   m_Father: {fileID: 4999165232457706697}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -5.617, y: 0, z: 0}
---- !u!114 &7045311374640270988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359073346067238175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5d873d912b0714c9e71583c4c83619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  vacuumMode: {fileID: 0}
-  vacuumMode2: {fileID: 0}
-  UnmorphMode: {fileID: 0}
-  UnmorphMode2: {fileID: 0}
-  isVacuumMode: 0
-  playerHUD: {fileID: 6104603949567804489}
 --- !u!1 &359223782983024618
 GameObject:
   m_ObjectHideFlags: 0
@@ -11652,7 +11632,7 @@ MonoBehaviour:
   AoiPositionSource: {fileID: 0}
   Flags: 2305
   NetworkGuid:
-    RawGuidValue: 95a787b630a81fb4c80a37f6ee0c40e4
+    RawGuidValue: 81d85cc5d40a39348ab78922f11e0fb9
   NestedObjects:
   - {fileID: 551734896252358423}
   NetworkedBehaviours:
@@ -11699,9 +11679,11 @@ MonoBehaviour:
   walkSpeed: 0
   rotationSpeed: 480
   viewVerticalSpeed: 390
+  _IsGrounded: 0
   StartDashing: 0
   StartNinjaMode: 0
   IsSprinting: 0
+  _Velocity: {x: 0, y: 0, z: 0}
 --- !u!114 &4309556519627489336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11785,6 +11767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _isFiring: 0
   vacuumAudioClip: {fileID: 0}
   unmorphAudioClip: {fileID: 0}
   fireVFX: {fileID: 482358262312314057}
@@ -11795,10 +11778,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 129
   hitMarker: {fileID: 2240025818718178350}
-  gunMode: {fileID: 7045311374640270988}
+  gunMode: {fileID: 0}
   ammoMaxCount: 0
   timeToReload: 0
-  ammoCountTxt: {fileID: 0}
   gadgetAction:
     m_PersistentCalls:
       m_Calls:
@@ -11852,7 +11834,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   txt: {fileID: 2134495655899601680}
   pauseMenu: {fileID: 7608349972650954076}
-  spaceNameTxt: {fileID: 238306719813990287}
   rotationTxt: {fileID: 3321177322963573220}
   crosshair: {fileID: 2070468216775928471}
   crosshair2: {fileID: 5421994701928464823}
@@ -12004,6 +11985,7 @@ MonoBehaviour:
   capturedBody: {fileID: 4769995776736601060}
   holdCenter: {fileID: 5941389429022916072}
   captureHandler: {fileID: 0}
+  _available: 0
 --- !u!1 &2308542966252323962
 GameObject:
   m_ObjectHideFlags: 0
@@ -17082,7 +17064,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6014103742941327588}
   - component: {fileID: 8405163644584776821}
-  - component: {fileID: 147843439021827110}
   m_Layer: 10
   m_Name: DoomerBooger (2)
   m_TagString: Untagged
@@ -17122,25 +17103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 7790159500475329222}
---- !u!114 &147843439021827110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3437504402382973558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5d873d912b0714c9e71583c4c83619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  vacuumMode: {fileID: 0}
-  vacuumMode2: {fileID: 0}
-  UnmorphMode: {fileID: 0}
-  UnmorphMode2: {fileID: 0}
-  isVacuumMode: 0
-  playerHUD: {fileID: 6104603949567804489}
 --- !u!1 &3493296817451627750
 GameObject:
   m_ObjectHideFlags: 0
@@ -17592,6 +17554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4999165232457706697}
   - component: {fileID: 551734896252358423}
+  - component: {fileID: 8169527610142052802}
   m_Layer: 0
   m_Name: GunPoint (1)
   m_TagString: Untagged
@@ -17639,10 +17602,28 @@ MonoBehaviour:
     RawGuidValue: 00000000000000000000000000000000
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 7045311374640270988}
-  - {fileID: 147843439021827110}
+  - {fileID: 8169527610142052802}
   - {fileID: 6545245156448070085}
   SimulationBehaviours: []
+--- !u!114 &8169527610142052802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3859571893191990141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5d873d912b0714c9e71583c4c83619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  vacuumMode: {fileID: 0}
+  vacuumMode2: {fileID: 0}
+  UnmorphMode: {fileID: 0}
+  UnmorphMode2: {fileID: 0}
+  isVacuumMode: 0
+  playerHUD: {fileID: 6104603949567804489}
 --- !u!1 &3876628209583319914
 GameObject:
   m_ObjectHideFlags: 0

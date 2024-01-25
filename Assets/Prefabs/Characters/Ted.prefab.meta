@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefabs/VFX/Bullet.prefab.meta
-guid: 591c9a75f448f9644acb4e4da35e0e6c
-========
 guid: 2ef4b2f247a10414bbe5968b867dec15
 labels:
 - FusionPrefab
->>>>>>>> dave:Assets/Prefabs/Characters/Ted.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

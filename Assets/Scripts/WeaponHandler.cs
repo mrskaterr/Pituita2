@@ -31,8 +31,8 @@ public class WeaponHandler : NetworkBehaviour
     [SerializeField] private GunMode gunMode;
     [SerializeField] private int ammoMaxCount;
     [SerializeField] private float timeToReload;
-    private int ammoCurrentCount;
-    [SerializeField] TMP_Text ammoCountTxt;
+    //private int ammoCurrentCount;
+    //[SerializeField] TMP_Text ammoCountTxt;
     //private AudioHandler audioHandler;
     private float timebetweenFire=0.1f;
     private float timebetweenUnmoprh=0.1f;
@@ -58,14 +58,14 @@ public class WeaponHandler : NetworkBehaviour
     void Start()
     {
         //audioHandler = GetComponent<AudioHandler>();
-        ammoCurrentCount=ammoMaxCount;
-        ammoCountTxt.text=ammoCurrentCount.ToString();
+        //ammoCurrentCount=ammoMaxCount;
+        //ammoCountTxt.text=ammoCurrentCount.ToString();
     }
     IEnumerator Reload()
     {
         yield return new WaitForSeconds(timeToReload);
-        ammoCurrentCount=ammoMaxCount;
-        ammoCountTxt.text=ammoCurrentCount.ToString();
+        //ammoCurrentCount=ammoMaxCount;
+        //ammoCountTxt.text=ammoCurrentCount.ToString();
     }
 
 
@@ -86,7 +86,7 @@ public class WeaponHandler : NetworkBehaviour
                 Fire(_networkInputData.aimForwardVector);
                 //audioHandler.PlayClip(vacuumAudioClip);
             }
-            else if(!_networkInputData.isFirePressed && gunMode.isVacuumMode || ammoCurrentCount==0)
+            else if(!_networkInputData.isFirePressed && gunMode.isVacuumMode )//|| ammoCurrentCount==0)
             {
                // foreach(ArcHandler a in arc)
                //     a.Target=null;
@@ -191,12 +191,12 @@ public class WeaponHandler : NetworkBehaviour
     }
     private void Fire(Vector3 _aimForwardVector)
     {
-        if(ammoCurrentCount<=0 )
-        {
-            isFiring=false;
-            ammoCountTxt.text=ammoCurrentCount.ToString();
-            return;
-        }
+        //if(ammoCurrentCount<=0 )
+        //{
+            //isFiring=false;
+            //ammoCountTxt.text=ammoCurrentCount.ToString();
+            //return;
+        //}
         if(Time.time - lastTimeFired < timebetweenFire)//TODO: MN
         {
             return;
@@ -237,8 +237,8 @@ public class WeaponHandler : NetworkBehaviour
         {
             Debug.DrawRay(aimPoint.position, _aimForwardVector * hitDistance, Color.green, 1);
         }
-        ammoCurrentCount--;
-        ammoCountTxt.text=ammoCurrentCount.ToString();
+        //ammoCurrentCount--;
+        //ammoCountTxt.text=ammoCurrentCount.ToString();
         lastTimeFired = Time.time;
     }
     private IEnumerator HitFX()

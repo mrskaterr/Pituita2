@@ -4,12 +4,10 @@ using UnityEngine;
 using Fusion;
 public class GunMode : NetworkBehaviour
 {
-    [SerializeField] GameObject vacuumMode;
-    [SerializeField] GameObject vacuumMode2;
-    [SerializeField] GameObject UnmorphMode;
-    [SerializeField] GameObject UnmorphMode2;
+    [SerializeField] List<GameObject> vacuumMode;
+    [SerializeField] List<GameObject> UnmorphMode;
     private bool canSwapMode = true;
-    [HideInInspector]public bool isVacuumMode;
+    [HideInInspector] public bool isVacuumMode;
     [SerializeField] private PlayerHUD playerHUD;
     void Start()
     {
@@ -24,21 +22,17 @@ public class GunMode : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_SwapMode()
     {
-        if(vacuumMode.activeInHierarchy && canSwapMode)
+        if(isVacuumMode && canSwapMode)
         { 
-            vacuumMode.SetActive(false);
-            vacuumMode2.SetActive(false);
-            UnmorphMode.SetActive(true);
-            UnmorphMode2.SetActive(true);
+            foreach(GameObject g in vacuumMode)g.SetActive(false);
+            foreach (GameObject g in UnmorphMode) g.SetActive(true);
             isVacuumMode=false;
             playerHUD.SetCrosshair(1);
         }
-        else if(UnmorphMode.activeInHierarchy && canSwapMode)
+        else if(!isVacuumMode && canSwapMode)
         {
-            UnmorphMode.SetActive(false);
-            UnmorphMode2.SetActive(false);
-            vacuumMode.SetActive(true);
-            vacuumMode2.SetActive(true);
+            foreach (GameObject g in vacuumMode) g.SetActive(true);
+            foreach (GameObject g in UnmorphMode) g.SetActive(false);
             isVacuumMode=true;;
             playerHUD.SetCrosshair(0);
         }
