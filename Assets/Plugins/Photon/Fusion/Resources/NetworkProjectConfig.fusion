@@ -155,7 +155,9 @@
     },
     "AssembliesToWeave": [
         "Assembly-CSharp",
-        "Assembly-CSharp-firstpass"
+        "Assembly-CSharp-firstpass",
+        "Scripts",
+        "Plugins"
     ],
     "UseSerializableDictionary": true,
     "NullChecksForNetworkedProperties": true,
