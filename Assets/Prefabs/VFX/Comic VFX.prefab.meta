@@ -1,11 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefabs/VFX/Comic VFX.prefab.meta
 guid: 4d833e10c9acc8c46b98ffd07efa4919
-========
-guid: dabd20431a6ef444181612920a801e31
-labels:
-- FusionPrefab
->>>>>>>> dave:Assets/Prefabs/Characters/Zeki.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

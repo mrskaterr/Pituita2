@@ -16,11 +16,7 @@ public class WeaponHandler : NetworkBehaviour
     public bool isFiring { get; set; }
     [SerializeField] AudioClip vacuumAudioClip;
     [SerializeField] AudioClip unmorphAudioClip;
-    //[Space]
-    //[SerializeField] private ParticleSystem fireParticleSystem;
-    //[SerializeField] private List<VisualEffect> visualEffect;
-    //public bool isFiring { get; set; }
-
+    [Space]    
     [SerializeField] private ArcHandler fireVFX;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject unmorphVFX;
@@ -29,11 +25,11 @@ public class WeaponHandler : NetworkBehaviour
     [SerializeField] private LayerMask targetLayerMask;
     [SerializeField] private GameObject hitMarker;
     [SerializeField] private GunMode gunMode;
-    [SerializeField] private int ammoMaxCount;
+    //[SerializeField] private int ammoMaxCount;
     [SerializeField] private float timeToReload;
     //private int ammoCurrentCount;
     //[SerializeField] TMP_Text ammoCountTxt;
-    //private AudioHandler audioHandler;
+    private AudioHandler audioHandler;
     private float timebetweenFire=0.1f;
     private float timebetweenUnmoprh=0.1f;
     private bool isGadgetActive;
@@ -48,7 +44,6 @@ public class WeaponHandler : NetworkBehaviour
     private float lastTimeUnmorph = 0;
     private Coroutine  reloadCoroutine;
     private bool isReloading=false;
-    public List<GameObject> ImpactVFX=new List<GameObject>(); 
     IEnumerator Disable(GameObject go)
     {
         yield return new WaitForSeconds(3f);
@@ -57,7 +52,7 @@ public class WeaponHandler : NetworkBehaviour
 
     void Start()
     {
-        //audioHandler = GetComponent<AudioHandler>();
+        audioHandler = GetComponent<AudioHandler>();
         //ammoCurrentCount=ammoMaxCount;
         //ammoCountTxt.text=ammoCurrentCount.ToString();
     }
@@ -84,23 +79,21 @@ public class WeaponHandler : NetworkBehaviour
             {
                 isFiring = true;
                 Fire(_networkInputData.aimForwardVector);
-                //audioHandler.PlayClip(vacuumAudioClip);
+                audioHandler.PlayClip(vacuumAudioClip);
             }
             else if(!_networkInputData.isFirePressed && gunMode.isVacuumMode )//|| ammoCurrentCount==0)
             {
-               // foreach(ArcHandler a in arc)
-               //     a.Target=null;
-               // isFiring=false;
-                //audioHandler.StopClip(vacuumAudioClip);
+                isFiring=false;
+                audioHandler.StopClip(vacuumAudioClip);
             }
             if (_networkInputData.isFirePressed && !gunMode.isVacuumMode)
             {
                 UnMorph(_networkInputData.aimForwardVector);
-               // audioHandler.PlayClip(unmorphAudioClip);
+               audioHandler.PlayClip(unmorphAudioClip);
             }
             else if (!_networkInputData.isFirePressed && !gunMode.isVacuumMode)
             {
-                //audioHandler.StopClip(unmorphAudioClip);
+                audioHandler.StopClip(unmorphAudioClip);
             }
             aim = _networkInputData.aimForwardVector;
         }
@@ -151,8 +144,6 @@ public class WeaponHandler : NetworkBehaviour
             return;
         }
         Runner.LagCompensation.Raycast(aimPoint.position, _aimForwardVector, 100, Object.InputAuthority, out var hitInfo, targetLayerMask, HitOptions.IncludePhysX); //TODO: MN
-        //GameObject bullet=Instantiate(prefBullet,aimPoint.position,Quaternion.Euler(Vector3.zero));
-        //bullet.GetComponent<Rigidbody>().velocity=_aimForwardVector*100;
         if(hitInfo.Distance > 0) 
         {
             if(hitInfo.Hitbox != null)
@@ -163,12 +154,10 @@ public class WeaponHandler : NetworkBehaviour
             }
             else if(hitInfo.Collider != null)
             {
-                //PlayImpactVFX(hitInfo.Point);
                 Runner.LagCompensation.OverlapSphere(hitInfo.Point,1,Object.InputAuthority,hitInfo2,targetLayerMask,HitOptions.IncludePhysX); 
     
                 for(int i=0;i<hitInfo2.Count;i++)
                 {
-                    Debug.Log("KULA DAL FULA");
                     if(hitInfo2[i].Hitbox != null )
                     {
 
@@ -178,7 +167,6 @@ public class WeaponHandler : NetworkBehaviour
                     if(hitInfo2[i].Collider != null)
                     {
                         Debug.Log(hitInfo2[i].Collider.transform.name);
-                        //Debug.Log($"{Time.time} {transform.name} hit PhysX collider {hitInfo.Collider.transform.name}");
                     }
                 } 
 
@@ -286,18 +274,12 @@ public class WeaponHandler : NetworkBehaviour
         if (isGadgetActive)
         {
             gadget.SetActive(false);
-            foreach (GameObject part in gun)
-            {
-                part.SetActive(true);
-            }
+            foreach (GameObject part in gun)part.SetActive(true);
         }
         else
         {
             gadget.SetActive(true);
-            foreach (GameObject part in gun)
-            {
-                part.SetActive(false);
-            }
+            foreach (GameObject part in gun)part.SetActive(false);
         }
         isGadgetActive = !isGadgetActive;
     }

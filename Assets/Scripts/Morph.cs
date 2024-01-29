@@ -14,14 +14,14 @@ public class Morph : NetworkBehaviour
     [SerializeField] private List<GameObject> morphingObjects = new List<GameObject>();
     [SerializeField] private LocalCameraHandler cameraHandler;
     private CharacterInputHandler inputHandler;
-    //private AudioHandler audioHandler;
+    private AudioHandler audioHandler;
     private bool isUnMorph=true;
     private PlayerHUD playerHUD;
     [SerializeField] private ParticleSystem particles;
     private void Awake()
     {
         inputHandler = GetComponent<CharacterInputHandler>();
-        //audioHandler = GetComponent<AudioHandler>();
+        audioHandler = GetComponent<AudioHandler>();
         playerHUD = GetComponent<PlayerHUD>();
     }
 
@@ -43,7 +43,7 @@ public class Morph : NetworkBehaviour
         }
         if(!isUnMorph)
         {
-            //audioHandler.PlayClip(morphAudioClip);
+            audioHandler.PlayClip(morphAudioClip);
         }
         if (index != -1) { particles.Play(); }
         playerHUD.SetCrosshair((byte) (index == -1 ? 0 : 100));
