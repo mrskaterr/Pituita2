@@ -8,7 +8,7 @@ public class TaskHandler : MonoBehaviour
 {
     //[SerializeField] TMP_Text progressTxt;
     [SerializeField] TMP_Text toDo;
-    [SerializeField] WayPoint wayPoint;
+    //[SerializeField] WayPoint wayPoint;
     static int indexRoom;
     static MissionData mission;
     private IEnumerator Start()
@@ -17,7 +17,7 @@ public class TaskHandler : MonoBehaviour
         indexRoom = 0;// eManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
         mission = GameManager.instance.missionManager.rooms[indexRoom].missions[0];
         //wayPoint.SetTarget();
-        Debug.Log(mission.currentStep.missionObjects[0].transform.name) ;
+        //Debug.Log(mission.currentStep.missionObjects[0].transform.name) ;
         for (int i = 0; i < mission.currentStep.missionObjects.Count; i++)
         {
             mission.currentStep.missionObjects[i].Enable ();
@@ -32,7 +32,7 @@ public class TaskHandler : MonoBehaviour
         {
             toDo.text = mission.isDone ? "Mission accomplished" : mission.currentStep.description;
 
-            wayPoint.SetTarget( mission.currentStep.missionObjects[0].transform);
+            //wayPoint.SetTarget( mission.currentStep.missionObjects[0].transform);
         }
 
     }
