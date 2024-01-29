@@ -9,13 +9,9 @@ public class LoadingCanvas : MonoBehaviour
     private static GameObject loading;
 
     public static LoadingCanvas instance;
-    [SerializeField] List<Transform> AutoPlay;
-
 
     private void Awake()
     {
-        foreach(Transform t in AutoPlay)
-            t.SetParent(null);
         
 
         if(instance != null) { Destroy(gameObject); }

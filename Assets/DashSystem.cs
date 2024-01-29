@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;  
 public class DashSystem : MonoBehaviour 
 { 
-    [SerializeField] TMP_Text dashAmount; 
-    [SerializeField] Image dashBarFill; 
+    //[SerializeField] TMP_Text dashAmount; 
+    //[SerializeField] Image dashBarFill; 
     [SerializeField] float dashSpeed=10f; 
     [SerializeField] int dashMaxAmount=2; 
     [SerializeField] float maxDashTime=1f; 
@@ -20,7 +20,7 @@ public class DashSystem : MonoBehaviour
     { 
         controller=GetComponent<NetworkCharacterController>(); 
         currentDashTime = maxDashTime; 
-        dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
+       // dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
         currentDashResetTime=dashResetTime; 
     } 
     public void Dash(bool startDashing) 
@@ -30,14 +30,14 @@ public class DashSystem : MonoBehaviour
             dashCurrentAmount++; 
             currentDashTime = 0.0f; 
             currentDashResetTime= 0.0f; 
-            dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
+            //dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
             startDashing=false; 
         } 
         if (currentDashTime < maxDashTime) 
         { 
             controller.maxSpeed=dashSpeed; 
             currentDashResetTime=0; 
-            dashBarFill.fillAmount = currentDashResetTime/dashResetTime; 
+            //dashBarFill.fillAmount = currentDashResetTime/dashResetTime; 
             currentDashTime += Time.fixedDeltaTime; 
         } 
         else 
@@ -45,11 +45,11 @@ public class DashSystem : MonoBehaviour
             controller.maxSpeed=controller.walkSpeed; 
             currentDashResetTime += Time.fixedDeltaTime; 
              
-            dashBarFill.fillAmount = currentDashResetTime/dashResetTime; 
+            //dashBarFill.fillAmount = currentDashResetTime/dashResetTime; 
             if(currentDashResetTime>=dashResetTime) 
             { 
                 dashCurrentAmount=0; 
-                dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
+                //dashAmount.text=(dashMaxAmount-dashCurrentAmount).ToString(); 
             } 
                  
         } 

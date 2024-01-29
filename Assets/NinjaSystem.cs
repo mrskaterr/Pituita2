@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using TMPro;  
 public class NinjaSystem : MonoBehaviour 
 { 
-    [SerializeField] TMP_Text NinjaAmount; 
-    [SerializeField] Image NinjaBarFill; 
+    //[SerializeField] TMP_Text NinjaAmount; 
+    //[SerializeField] Image NinjaBarFill; 
     [SerializeField] float NinjaSpeed=10f; 
     [SerializeField] int NinjaMaxAmount=2; 
     [SerializeField] float maxNinjaTime=1f; 
@@ -24,7 +24,7 @@ public class NinjaSystem : MonoBehaviour
         audioHandler=GetComponent<AudioHandler>();
         controller=GetComponent<NetworkCharacterController>(); 
         currentNinjaTime = maxNinjaTime; 
-        NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
+        //NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
         currentNinjaResetTime=NinjaResetTime; 
     } 
     public void NinjaMode(bool start) 
@@ -37,11 +37,11 @@ public class NinjaSystem : MonoBehaviour
         else 
         { 
             currentNinjaResetTime += Time.fixedDeltaTime; 
-            NinjaBarFill.fillAmount = currentNinjaResetTime/NinjaResetTime; 
+            //NinjaBarFill.fillAmount = currentNinjaResetTime/NinjaResetTime; 
             if(currentNinjaResetTime>=NinjaResetTime) 
             { 
                 NinjaCurrentAmount=0; 
-                NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
+                //NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
             }        
         } 
     }
@@ -52,7 +52,7 @@ public class NinjaSystem : MonoBehaviour
         NinjaCurrentAmount++; 
         currentNinjaTime = 0.0f; 
         currentNinjaResetTime= 0.0f; 
-        NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
+        //NinjaAmount.text=(NinjaMaxAmount-NinjaCurrentAmount).ToString(); 
         yield return new WaitForSeconds(time);
         audioHandler.NinjaMode(true);
         activeNinjaMode=false;
