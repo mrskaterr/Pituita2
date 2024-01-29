@@ -33,11 +33,12 @@ public class MissionObject : MonoBehaviour, IInteractable
     }
     public void NextTask(int score)
     {
+        scoreManager.AddScore(score);
         mission.NextStep();
     }
     public void NextTask()
     {
-        scoreManager.AddScore(5);
+        
         mission.NextStep();
     }
     public void AddScore(int score)

@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         missionManager = GetComponent<MissionManager>();
         scoreManager = GetComponent<ScoreManager>();
         sharedTimer.duration = gameDuration;
+        
     }
 
     private void Start()

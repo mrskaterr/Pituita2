@@ -108,7 +108,6 @@ public class InteractHandler : MonoBehaviour
             interactable2 = null;
         }
     }
-
     //private void OnDrawGizmos()
     //{
     //    Gizmos.color = Color.red;

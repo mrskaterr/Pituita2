@@ -19,9 +19,13 @@ public class FindingTriggerMission : MissionObject,IInteractable
     }
     void OnTriggerEnter(Collider other)
     {
-        player=other.transform;
-        if(other.gameObject.GetComponent<Morph>() && LayerMask.NameToLayer(interactableLayerName)==gameObject.layer)
+
+        if(other.gameObject.GetComponent<Morph>() && gameObject.layer!=0)
+        {
+            player = other.transform;
             ToDo();
+        }
+            
     }
     public void SetPosition(int index)
     {

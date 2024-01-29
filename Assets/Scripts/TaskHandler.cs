@@ -7,18 +7,24 @@ public class TaskHandler : MonoBehaviour
 {
     //[SerializeField] TMP_Text progressTxt;
     [SerializeField] TMP_Text toDo;
-    int index = 0;
+    static int indexRoom ;
+    static MissionData mission;
 
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2.1f);
-        index = GameManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
+        indexRoom = 0;// eManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
+        mission = GameManager.instance.missionManager.rooms[indexRoom].missions[0];
+        for (int i = 0; i < mission.currentStep.missionObjects.Count; i++)
+        {
+            mission.currentStep.missionObjects[i].Enable ();
+        }
     }
 
     void Update()
     {
         if(GameManager.instance == null) { return; }
-        var mission = GameManager.instance.missionManager.rooms[index].missions[0];
+        mission = GameManager.instance.missionManager.rooms[indexRoom].missions[0];
         if (toDo.text != null)
         {
             toDo.text = mission.isDone ? "Mission accomplished" : mission.currentStep.description;

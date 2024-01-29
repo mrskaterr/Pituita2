@@ -6,8 +6,7 @@ using UnityEngine.Events;
 public class InteractableHold : MissionObject, IInteractableHold
 {
     [SerializeField] EnumItem.Item ItemToNeed;
-    public int itemAmount=1;
-    [SerializeField] bool oneInteraction;
+    public int interactionAmount;
     [SerializeField] protected float holdTime = 1f;
     public string desc = "Opening ...";
     //public string Description { get; protected set; } = "Opening ...";
@@ -37,13 +36,14 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     private void Step()
     {
-        step.Invoke();
         iterator++;
+        step.Invoke();
+
     }
     private void Completed()
     {
         completed.Invoke();
-        if(oneInteraction) NextTask();
+        NextTask();
     }
     public void StartInteract(GameObject @object)
     {
@@ -74,8 +74,9 @@ public class InteractableHold : MissionObject, IInteractableHold
         //@object.GetComponent<AudioHandler>().InteractLoading(false);
         //@object.GetComponent<AudioHandler>().InteractDone();
         Step();
-        if(itemAmount<=iterator)
+        if (interactionAmount <= iterator)
             Completed();
+            
     }
 
     private IEnumerator Holding(GameObject @object)
@@ -89,5 +90,9 @@ public class InteractableHold : MissionObject, IInteractableHold
     public void DestroyUsedItem()
     {
         Destroy(itemToDestroy.gameObject);
+    }
+    public void ChangeDescriptioon(string a)
+    {
+        mission.currentStep.description = a + " (" + iterator + "/" + interactionAmount + ")";
     }
 }

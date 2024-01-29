@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class OrderStation : MissionObject
 {
-    static int iterator=0;
+    int iterator=0;
+    
     public void Done()
     {
-        AddScore(5);
         iterator++;
+        mission.currentStep.description = "Infect Stations(" + iterator + "/ 5)";
         Debug.Log(iterator);
-        if(transform.childCount<=iterator)
+        if (transform.childCount <= iterator)
+        {
+            transform.GetChild(0).GetComponent<InteractableHold>().DestroyUsedItem();
             NextTask();
+        } 
 
     }
 
