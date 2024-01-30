@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleTask : MonoBehaviour, IInteractable
+public class SimpleTask : NetworkBehaviour, IInteractable
 {
     [SerializeField] private GameObject VFX;
     [SerializeField] private GameObject oldModel, newModel;
@@ -21,5 +21,6 @@ public class SimpleTask : MonoBehaviour, IInteractable
         oldModel.SetActive(false);
         VFX.SetActive(true);
         newModel.SetActive(true);
+        GetComponent<BoxCollider>().enabled = false;
     }
 }

@@ -19,12 +19,17 @@ public class ScoreManager : NetworkBehaviour
     private void UpdateBar(int _points)
     {
         progressBar.fillAmount = (float) _points / (float) scoreTarget;
+        Score = _points;
     }
 
     [Rpc]
     public void Rpc_MyStaticRpc(int a)
     {
         UpdateBar(a);
+        if(Score >= scoreTarget)
+        {
+            RPCManager.Local.RPC_GameOver(RPCManager.Team.Blobs);
+        }
     }
 
     //private void Update()

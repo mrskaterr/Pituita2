@@ -56,7 +56,110 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\MissionData.cs" />
+    <Compile Include="Assets\Scripts\SimpleTask.cs" />
+    <Compile Include="Assets\Scripts\NetworkAnimator.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkInputData.cs" />
+    <Compile Include="Assets\Scripts\TestArc.cs" />
+    <Compile Include="Assets\Scripts\RPCManager.cs" />
+    <Compile Include="Assets\Scripts\SyncPos.cs" />
+    <Compile Include="Assets\Scripts\UnmorphWave.cs" />
+    <Compile Include="Assets\Scripts\NetworkRandomizeManager.cs" />
+    <Compile Include="Assets\Scripts\TASKS\taskCircle\Job.cs" />
+    <Compile Include="Assets\Scripts\Push.cs" />
+    <Compile Include="Assets\Scripts\SpectateManager.cs" />
+    <Compile Include="Assets\Scripts\Billboard.cs" />
+    <Compile Include="Assets\Scripts\Tests\Play mode\PlayfabTest.cs" />
+    <Compile Include="Assets\Scripts\PlayerUtility.cs" />
+    <Compile Include="Assets\Scripts\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\Manager.cs" />
+    <Compile Include="Assets\Scripts\Sonar.cs" />
+    <Compile Include="Assets\Scripts\SpectateSync.cs" />
+    <Compile Include="Assets\Scripts\ActivityEvents.cs" />
+    <Compile Include="Assets\Scripts\CharacterInputHandler.cs" />
+    <Compile Include="Assets\Scripts\CaptureHandler.cs" />
+    <Compile Include="Assets\Scripts\GunMode.cs" />
+    <Compile Include="Assets\Scripts\BlobStation.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\RandomInteractMission.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\MissionManager.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\HackingMission.cs" />
+    <Compile Include="Assets\Scripts\PlayerListItem.cs" />
+    <Compile Include="Assets\Scripts\TASKS\JobHandler.cs" />
+    <Compile Include="Assets\Scripts\TASKS\Generator_Panel.cs" />
+    <Compile Include="Assets\Scripts\Extensions\IntExtension.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\FindingTriggerMission.cs" />
+    <Compile Include="Assets\Scripts\TASKS\taskColor\ResetColors.cs" />
+    <Compile Include="Assets\Scripts\PlayerHUD.cs" />
+    <Compile Include="Assets\Scripts\PlayerRole.cs" />
+    <Compile Include="Assets\Scripts\LobbyManagerV2.cs" />
+    <Compile Include="Assets\Scripts\TASKS\TaskTest.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\TestMission3.cs" />
+    <Compile Include="Assets\Scripts\Teleportyzer.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\ChangePositionMission.cs" />
+    <Compile Include="Assets\Scripts\TaskHandler.cs" />
+    <Compile Include="Assets\Scripts\LocalCameraHandler.cs" />
+    <Compile Include="Assets\Scripts\MorphBullet.cs" />
+    <Compile Include="Assets\Scripts\TASKS\taskColor\ColorButton.cs" />
+    <Compile Include="Assets\Scripts\WeaponHandler.cs" />
+    <Compile Include="Assets\Scripts\PlayfabLogin.cs" />
+    <Compile Include="Assets\Scripts\Network\Spawner.cs" />
+    <Compile Include="Assets\Scripts\EscapeGameLogic.cs" />
+    <Compile Include="Assets\Scripts\Wobble.cs" />
+    <Compile Include="Assets\Scripts\LoadingCanvas.cs" />
+    <Compile Include="Assets\Scripts\CharacterMovementHandler.cs" />
+    <Compile Include="Assets\Scripts\EnumItem.cs" />
+    <Compile Include="Assets\Scripts\LobbyManager.cs" />
+    <Compile Include="Assets\Scripts\Movement.cs" />
+    <Compile Include="Assets\Scripts\SpawnerV2.cs" />
+    <Compile Include="Assets\Scripts\OnCollision.cs" />
+    <Compile Include="Assets\Scripts\LockAction.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\MissionObject.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\InteractableHold.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkRunnerHandler.cs" />
+    <Compile Include="Assets\Scripts\ReferenceHold.cs" />
+    <Compile Include="Assets\Scripts\Jar.cs" />
+    <Compile Include="Assets\Scripts\TASKS\JobHandler2.cs" />
+    <Compile Include="Assets\Scripts\Extensions\TMPTextExtension.cs" />
+    <Compile Include="Assets\Scripts\InteractHandler.cs" />
+    <Compile Include="Assets\Scripts\Equipment.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\Scripts\CarryHandler.cs" />
+    <Compile Include="Assets\Scripts\Morph.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovementTutorial.cs" />
+    <Compile Include="Assets\Scripts\Utils.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\Item.cs" />
+    <Compile Include="Assets\Scripts\CarryGlobal.cs" />
+    <Compile Include="Assets\Scripts\SharedTimer.cs" />
+    <Compile Include="Assets\Scripts\UserInfoPrefab.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\WordsHacking.cs" />
+    <Compile Include="Assets\Scripts\SpaceManager.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkPlayer.cs" />
+    <Compile Include="Assets\Scripts\TASKS\Words_Panel.cs" />
+    <Compile Include="Assets\Scripts\JarBlob.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Break.cs" />
+    <Compile Include="Assets\Scripts\UserData.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\TestMission2.cs" />
+    <Compile Include="Assets\Scripts\CompassHandler.cs" />
+    <Compile Include="Assets\Scripts\MorphObject.cs" />
+    <Compile Include="Assets\Scripts\VictoryScreen.cs" />
+    <Compile Include="Assets\Scripts\GunPoint.cs" />
+    <Compile Include="Assets\Scripts\CamerasHolder.cs" />
+    <Compile Include="Assets\Scripts\TASKS\TaskLogic.cs" />
+    <Compile Include="Assets\Scripts\NetworkCharacterController.cs" />
+    <Compile Include="Assets\Scripts\Detach.cs" />
+    <Compile Include="Assets\Scripts\RegionSelect.cs" />
+    <Compile Include="Assets\Scripts\MissionScript\BehaviorMission\TestMission.cs" />
     <Compile Include="Assets\Rendering\Shaders\Better Celshading\ScriptableRenderFeatures\DepthNormalsFeature.cs" />
+    <Compile Include="Assets\Scripts\TASKS\taskColor\TaskRemeberColor.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerNetworkEventsHandler.cs" />
+    <Compile Include="Assets\Scripts\Bar.cs" />
+    <Compile Include="Assets\Scripts\TestLogin.cs" />
+    <Compile Include="Assets\Scripts\TASKS\taskCircle\Hack_Panel.cs" />
+    <Compile Include="Assets\Scripts\PlayerHolder.cs" />
+    <Compile Include="Assets\Scripts\ArcHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Rendering\Shaders\Better Celshading\CustomHLSL\CustomLighting.hlsl" />
@@ -881,13 +984,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{6E396BFC-D3F2-948C-B235-A646E30B0F83}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="PlayFabSDKEditor.csproj">
       <Project>{E949FA51-A209-777A-613B-949B2851F75C}</Project>
       <Name>PlayFabSDKEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Plugins.csproj">
-      <Project>{78D30556-B667-7E19-3ED7-D10D82DC3ED7}</Project>
-      <Name>Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="Fusion.Editor.csproj">
       <Project>{CA145FD2-7004-64A2-2526-DA865EF4BD62}</Project>
@@ -896,10 +999,6 @@
     <ProjectReference Include="Fusion.Addressables.csproj">
       <Project>{AD3D8300-73DF-ACAA-61EE-4827B26F286D}</Project>
       <Name>Fusion.Addressables</Name>
-    </ProjectReference>
-    <ProjectReference Include="Scripts.csproj">
-      <Project>{85EF8B38-A996-DB26-3424-1336F7E63FCA}</Project>
-      <Name>Scripts</Name>
     </ProjectReference>
     <ProjectReference Include="PlayFabEditorExtensions.csproj">
       <Project>{9F55A078-9074-1B93-AF94-3AA959845E42}</Project>

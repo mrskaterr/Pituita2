@@ -947,17 +947,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{6E396BFC-D3F2-948C-B235-A646E30B0F83}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{ACEE2705-D884-3C5A-2265-9B476D157833}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{5A7EAFD5-8809-1B14-7558-015E6FBCF1A7}</Project>
+      <Name>Assembly-CSharp-Editor-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="PlayFabSDKEditor.csproj">
       <Project>{E949FA51-A209-777A-613B-949B2851F75C}</Project>
       <Name>PlayFabSDKEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Plugins.csproj">
-      <Project>{78D30556-B667-7E19-3ED7-D10D82DC3ED7}</Project>
-      <Name>Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="Fusion.Editor.csproj">
       <Project>{CA145FD2-7004-64A2-2526-DA865EF4BD62}</Project>
@@ -966,10 +970,6 @@
     <ProjectReference Include="Fusion.Addressables.csproj">
       <Project>{AD3D8300-73DF-ACAA-61EE-4827B26F286D}</Project>
       <Name>Fusion.Addressables</Name>
-    </ProjectReference>
-    <ProjectReference Include="Scripts.csproj">
-      <Project>{85EF8B38-A996-DB26-3424-1336F7E63FCA}</Project>
-      <Name>Scripts</Name>
     </ProjectReference>
     <ProjectReference Include="PlayFabEditorExtensions.csproj">
       <Project>{9F55A078-9074-1B93-AF94-3AA959845E42}</Project>
