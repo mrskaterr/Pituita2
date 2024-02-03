@@ -25,6 +25,10 @@ public class RandomInteractMission : MissionObject,IInteractable
     }
     protected override void OnInteract(GameObject @object)
     {
+        if(@object.GetComponent<HackerSystem>())
+        {
+            Completed(@object);
+        }
         if(iterator<Max)
             Step();
         if(Rand==Max-1 )

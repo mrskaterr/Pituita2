@@ -16,19 +16,21 @@ public class TaskHandler : MonoBehaviour
         yield return new WaitForSeconds(2.1f);
         indexRoom = 0;// eManager.instance.GetComponent<NetworkRandomizeManager>().GetRandomNumber(0, 4);
         mission = GameManager.instance.missionManager.rooms[indexRoom].missions[0];
-        //wayPoint.SetTarget();
-        //Debug.Log(mission.currentStep.missionObjects[0].transform.name) ;
+
+
+       
         for (int i = 0; i < mission.currentStep.missionObjects.Count; i++)
         {
-            mission.currentStep.missionObjects[i].Enable ();
+            mission.currentStep.missionObjects[i].Enable();
         }
+        //wayPoint.SetTarget(mission.currentStep.missionObjects[0].transform);
+        Debug.Log(mission.currentStep.missionObjects[0].transform.name) ;
     }
 
     void Update()
     {
         if(GameManager.instance == null) { return; }
-        mission = GameManager.instance.missionManager.rooms[indexRoom].missions[0];
-        if (toDo.text != null)
+        if (toDo != null && mission !=null)
         {
             toDo.text = mission.isDone ? "Mission accomplished" : mission.currentStep.description;
 

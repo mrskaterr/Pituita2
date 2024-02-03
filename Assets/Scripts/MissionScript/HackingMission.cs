@@ -10,7 +10,6 @@ using UnityEngine.PlayerLoop;
 public class HackingMission : MissionObject,IInteractable
 {
     [SerializeField]WordsHacking wordsHacking;
-    public GameObject player;
     [SerializeField] GameObject can;
     [SerializeField] TMP_Text Password;
     [SerializeField] TMP_Text[] line0;
@@ -34,7 +33,7 @@ public class HackingMission : MissionObject,IInteractable
     }
     void OnDisable()
     {
-        player.GetComponent<CharacterInputHandler>().enabled=true;
+       
     }
     //     player.GetComponent<CharacterInputHandler>().enabled=false;
     //     @object.GetComponent<NetworkCharacterController>().enabled=false;
@@ -46,7 +45,7 @@ public class HackingMission : MissionObject,IInteractable
     {
         word = wordsHacking.GetHackingPassword();
         Password.text = word.ArrayToString();
-        player.GetComponent<CharacterInputHandler>().enabled=false;
+        
     }
     //     player.GetComponent<CharacterInputHandler>().enabled=true;
     //     @object.GetComponent<NetworkCharacterController>().enabled=false;

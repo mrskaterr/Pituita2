@@ -10,7 +10,8 @@ public class MissionData : NetworkBehaviour
     public List<MissionStep> steps = new List<MissionStep>();
     public MissionStep currentStep;
     [SerializeField] private int score = 50;
-    [Networked(OnChanged = nameof(OnDoneChanged))] public bool isDone { get; set; } = false;
+    [Networked(OnChanged = nameof(OnDoneChanged))] 
+    public bool isDone { get; set; } =false;
 
     public Action onNextStep;
     public Action onDone;

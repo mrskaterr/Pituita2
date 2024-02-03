@@ -17,12 +17,18 @@ public class WordsHacking : MissionObject,IInteractable
     {
         player = @object.gameObject;
         EmptyPendrive=@object.GetComponent<Equipment>().isHeHad((int)EnumItem.Item.EmptyPendrive);
-        if(EmptyPendrive!=null)
+        if (EmptyPendrive != null && @object.GetComponent<HackerSystem>())
+        {
+            player = @object;
+            done();
+        }
+        else if (EmptyPendrive!=null)
         {
             @object.GetComponent<CharacterInputHandler>().enabled=false;
             hackingPanel.SetActive(true);
-            hackingMission.player=@object.gameObject;
+            player=@object;
         }
+
 
     }
     public void done()

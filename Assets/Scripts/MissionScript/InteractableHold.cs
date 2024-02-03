@@ -52,8 +52,15 @@ public class InteractableHold : MissionObject, IInteractableHold
         if(@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed)!=null)
         {
             itemToDestroy=@object.GetComponent<Equipment>().isHeHad((int)ItemToNeed);
-            //@object.GetComponent<AudioHandler>().InteractLoading(true);
+            if(@object.GetComponent<HackerSystem>())
+            {
+                holdTime = 0.01f;
+
+            }
+
+            @object.GetComponent<AudioHandler>().InteractLoading(true);
             StartCoroutine(Holding(@object));
+
         }    
         else
             Debug.Log("null");
@@ -71,8 +78,8 @@ public class InteractableHold : MissionObject, IInteractableHold
 
     public virtual void OnFill(GameObject @object)
     {
-        //@object.GetComponent<AudioHandler>().InteractLoading(false);
-        //@object.GetComponent<AudioHandler>().InteractDone();
+        @object.GetComponent<AudioHandler>().InteractLoading(false);
+        @object.GetComponent<AudioHandler>().InteractDone();
         Step();
         if (interactionAmount <= iterator)
             Completed();

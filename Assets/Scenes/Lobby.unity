@@ -6867,7 +6867,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1481865382}
-  AutoPlay: []
 --- !u!1 &468327759
 GameObject:
   m_ObjectHideFlags: 0
